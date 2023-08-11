@@ -1,0 +1,49 @@
+###################################################################
+###################  Würfelspiel  #################################
+####      Version: Jeder darf nur 1x/Durchgang würfeln        #####
+# Spiel läuft nach Eingabe der Spielteilnehmer automatisiert ab   #
+###################################################################
+
+
+
+import random
+import matplotlib.pyplot as plt
+
+spieleranzahl = int(input("Wie viele Spieler möchten spielen? "))
+spieler_punkte = [0]*spieleranzahl
+spieler_punkte_plot = [[] for _ in range(spieleranzahl)]
+highscore = 0
+würfelungen = 0
+wert = 100
+while highscore < wert:
+   würfelungen += 1
+   for spieler in range(spieleranzahl):
+      if highscore < wert:
+         zahl = random.randint(1, 6)
+         if zahl != 1:
+            spieler_punkte[spieler] += zahl
+            spieler_punkte_plot[spieler].append(spieler_punkte[spieler])
+            new_highscore = spieler_punkte[spieler] 
+            if new_highscore > highscore:
+               highscore = new_highscore
+               if highscore >= wert:
+                  print(f"Es gab {würfelungen} Würfelungen/Durchgänge. ")
+            print(f"Spieler {spieler+1} hat {zahl} gewürfelt. Seine Gesamtpnkte: {spieler_punkte[spieler]}. Highscore derzeit {highscore}.")
+         else:
+            spieler_punkte[spieler] = 0
+            spieler_punkte_plot[spieler].append(spieler_punkte[spieler])
+            print(f"Spieler {spieler+1} hat leider eine 1 gewürfelt. Seine Punkte: {spieler_punkte[spieler]}.")
+      else:
+         break
+
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+#for i in range(len(spieler_punkte_plot)):
+farbwert = 1
+for z in spieler_punkte_plot:
+	s = [y for y in range(len(z))]	
+	ax.plot(s, z, color='C'+str(farbwert), label="Spieler "+str(farbwert))
+	farbwert += 1
+plt.legend()
+plt.show()
