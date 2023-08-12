@@ -52,7 +52,6 @@ while highscore < ziel:
 	
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
-#for i in range(len(spieler_punkte_plot)):
 farbwert = 1
 for z in spieler_punkte_plot:
 	s = [y for y in range(len(z))]	
